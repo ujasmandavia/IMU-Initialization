@@ -1,9 +1,11 @@
-#pragma once
+#pragma onc
 
 #include <iostream>
 #include <vector>
 
 #include <Eigen/Core>
+
+#include "eigen_defs.h"
 
 namespace IMU{
 EIGEN_MAKE_ALIGNED_OPERATOR_NEW
@@ -45,17 +47,18 @@ public:
   Eigen::Vector3d GetAccOriginalBias() const;
   Eigen::Vector3d GetAccUpdatedBias() const;
   Eigen::Matrix3d GetDeltaRotation(const Eigen::Vector3d& bg) const;
-  Eigen::Matrix3d GetDeltaVelocity(const Eigen::Vector3d& bg, const Eigen::Vector3d& ba) const;
-  Eigen::Matrix3d GetDeltaPosition(const Eigen::Vector3d& bg, const Eigen::Vector3d& ba) const;
+  Eigen::Vector3d GetDeltaVelocity(const Eigen::Vector3d& bg, const Eigen::Vector3d& ba) const;
+  Eigen::Vector3d GetDeltaPosition(const Eigen::Vector3d& bg, const Eigen::Vector3d& ba) const;
   Eigen::Matrix3d GetUpdatedDeltaRotation() const;
-  Eigen::Matrix3d GetUpdatedDeltaVelocity() const;
-  Eigen::Matrix3d GetUpdatedDeltaPosition() const;
+  Eigen::Vector3d GetUpdatedDeltaVelocity() const;
+  Eigen::Vector3d GetUpdatedDeltaPosition() const;
   Eigen::Matrix3d GetOriginalDeltaRotation() const;
-  Eigen::Matrix3d GetOriginalDeltaVelocity() const;
-  Eigen::Matrix3d GetOriginalDeltaPosition() const;
+  Eigen::Vector3d GetOriginalDeltaVelocity() const;
+  Eigen::Vector3d GetOriginalDeltaPosition() const;
 
 private:
-  void Initialize(const Eigen::Vector3d& bg, const Eigen::Vector3d& ba);
+  Preintegration() {}
+  void Initialize(const Eigen::Vector3d& ba, const Eigen::Vector3d& bg);
 
 public:
   double dt;
@@ -65,7 +68,7 @@ public:
 
   //Values for the original bias (when integration was computed)
   Eigen::Vector6d b;
-  Eigen::Vector3d dR;
+  Eigen::Matrix3d dR;
   Eigen::Vector3d dV,dP;
   Eigen::Matrix3d JRg, JVg, JVa, JPg, JPa;
   //Eigen::Vector3d avgA, avgW;
