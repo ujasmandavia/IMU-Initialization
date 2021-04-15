@@ -78,7 +78,7 @@ bool GravityParameterization::ComputeJacobian(const double* x, double* jacobian)
 //      and invJr := InverseRightJacobianSO3(er)
 class GyroscopeBiasCostFunction : public ceres::SizedCostFunction<3, 3> {
  public:
-  GyroscopeBiasCostFunction(std::shared_ptr<const IMU::Preintegrated> pInt, const Eigen::Matrix3d& Ri, const Eigen::Matrix3d& Rj)
+  GyroscopeBiasCostFunction(std::shared_ptr<const IMU::Preintegration> pInt, const Eigen::Matrix3d& Ri, const Eigen::Matrix3d& Rj)
     : pInt(pInt), Ri(Ri), Rj(Rj)
   {
     Eigen::SelfAdjointEigenSolver<Eigen::Matrix3d> solver(pInt->C.block<3, 3>(0, 0));
@@ -116,7 +116,7 @@ class GyroscopeBiasCostFunction : public ceres::SizedCostFunction<3, 3> {
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
  private:
-  std::shared_ptr<const IMU::Preintegrated> pInt;
+  std::shared_ptr<const IMU::Preintegration> pInt;
 
   const Eigen::Matrix3d Ri, Rj;
 
@@ -126,7 +126,7 @@ class GyroscopeBiasCostFunction : public ceres::SizedCostFunction<3, 3> {
 // velocity1, velocity2, bias_g, bias_a, Rwg, scale
 class InertialCostFunction : public ceres::SizedCostFunction<9, 3, 3, 3, 3, 9, 1> {
 public:
-  InertialCostFunction(std::shared_ptr<const IMU::Preintegrated> pInt,
+  InertialCostFunction(std::shared_ptr<const IMU::Preintegration> pInt,
                        const Eigen::Matrix3d &R1, const Eigen::Vector3d &p1,
                        const Eigen::Matrix3d &R2, const Eigen::Vector3d &p2,
                        const Eigen::Isometry3d &Tcb = Eigen::Isometry3d::Identity())

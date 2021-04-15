@@ -10,6 +10,8 @@ inline Eigen::Matrix3d ExpSO3(const Eigen::Vector3d& w) {
   return ExpSO3(w[0],w[1],w[2]);
 }
 
+Eigen::Vector3d LogSO3(const Eigen::Matrix3d& R);
+
 Eigen::Matrix3d RightJacobianSO3(const double x, const double y, const double z);
 inline Eigen::Matrix3d RightJacobianSO3(const Eigen::Vector3d &v) { return RightJacobianSO3(v[0], v[1], v[2]); }
 

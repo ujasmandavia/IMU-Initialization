@@ -61,7 +61,7 @@ private:
   void Initialize(const Eigen::Vector3d& ba, const Eigen::Vector3d& bg);
 
 public:
-  double dt;
+  double dT;
   Eigen::Matrix9d C;
 
   Eigen::Matrix6d Nga;

@@ -31,3 +31,25 @@ find_package(Ceres REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Gflags REQUIRED)
 find_package(Glog REQUIRED)
+
+include_directories(include ${PROJECT_SOURCE_DIR} ${Boost_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIR} ${GFLAGS_INCLUDE_DIR} ${GLOG_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS})
+
+## Header files
+file(GLOB_RECURSE HEADER_FILES include/*.hpp include/*.h)
+add_custom_target(header_files SOURCES ${HEADER_FILES})
+message(STATUS "Header files: " ${HEADER_FILES})
+
+add_executable(test01 src/test01.cc src/imu_preintegration.cc src/polynomial.cc src/so3.cc src/string.cc src/timer.cc)
+target_link_libraries(test01 ${Boost_LIBRARIES} ${CERES_LIBRARIES} ${GFLAGS_LIBRARY} ${GLOG_LIBRARIES})
+
+#add_executable(experiment01a src/experiment01a.cc src/imu_preintegration.cc src/polynomial.cc src/so3.cc src/string.cc src/timer.cc)
+#target_link_libraries(experiment01a ${Boost_LIBRARIES} ${CERES_LIBRARIES} ${GFLAGS_LIBRARY} ${GLOG_LIBRARIES})
+
+#add_executable(experiment01b src/experiment01b.cc src/imu_preintegration.cc src/polynomial.cc src/so3.cc src/string.cc src/timer.cc)
+#target_link_libraries(experiment01b ${Boost_LIBRARIES} ${CERES_LIBRARIES} ${GFLAGS_LIBRARY} ${GLOG_LIBRARIES})
+
+#add_executable(experiment01c src/experiment01c.cc src/imu_preintegration.cc src/polynomial.cc src/so3.cc src/string.cc src/timer.cc)
+#target_link_libraries(experiment01c ${Boost_LIBRARIES} ${CERES_LIBRARIES} ${GFLAGS_LIBRARY} ${GLOG_LIBRARIES})
+
+#add_executable(experiment02 src/experiment02.cc src/imu_preintegration.cc src/polynomial.cc src/so3.cc src/string.cc src/timer.cc)
+#target_link_libraries(experiment02 ${Boost_LIBRARIES} ${CERES_LIBRARIES} ${GFLAGS_LIBRARY} ${GLOG_LIBRARIES})
